@@ -290,3 +290,52 @@ var moveZeroes = function(nums) {
   }
 };
 ```
+
+### 2020.04.14 
+
+#### Tsingwong：三数之和
+
+[3sum](https://leetcode-cn.com/problems/3sum/)
+
+标签：数组、双指针
+
+思路：遇事不决先排序，双指针夹壁就是刚。k 固定，i 为 k +1, j 为数组最后一个值，逐渐夹壁。需要特殊处理的是相同值。
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+  let res = []
+  let sortNums = nums.sort((a, b) => a - b)
+  for(let k = 0; k < nums.length -2; k++ ) {
+    let i = k + 1
+    let j = nums.length - 1
+    while(i < j) {
+      if(nums[k] + nums[i] +nums[j] === 0) {
+        res.push([nums[k], nums[i], nums[j]])
+        while (i < j && nums[i] ===nums[i+1]) {
+          i++
+        }
+        while (i < j && nums[j] ===nums[j-1]) {
+          j--
+        }
+        i++
+        j--
+      } else if (nums[k] + nums[i] +nums[j] > 0) {
+        j--
+      } else {
+        i++
+      }
+    }
+    while(k < nums.length-2 && nums[k] === nums[k+1]) {
+      k = k+1
+    }
+  }
+  return res
+};
+```
+
+
+
